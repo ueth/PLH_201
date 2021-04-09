@@ -18,6 +18,12 @@ public class Tool {
         System.out.println("ADD 10");
         bst.insert(10, bst.getRoot());
         bst.resetCurrentPos();
+        System.out.println("ADD 13");
+        bst.insert(13, bst.getRoot());
+        bst.resetCurrentPos();
+        System.out.println("ADD 15");
+        bst.insert(15, bst.getRoot());
+        bst.resetCurrentPos();
         System.out.println("ADD 5");
         bst.insert(5, bst.getRoot());
         bst.resetCurrentPos();
@@ -41,6 +47,8 @@ public class Tool {
         bst.resetCurrentPos();
         System.out.println("ADD 1");
         bst.insert(1, bst.getRoot());
+
+        bst.printTree(bst.getRoot(), 1);
 
 
 

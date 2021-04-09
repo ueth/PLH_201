@@ -47,6 +47,14 @@ public class BinarySearchTree {
         return _tree[_currentPos][0] = key;
     }
 
+    private int getRight(int pos){
+        return _tree[pos][2];
+    }
+
+    private int getLeft(int pos){
+        return _tree[pos][1];
+    }
+
     public int getKey(int pos){
         return _tree[pos][0];
     }
@@ -86,7 +94,6 @@ public class BinarySearchTree {
     }
 
     public int insert(int key, int pos){
-        System.out.println(_tree[pos][0] + " " + _tree[pos][1] + " " + _tree[pos][2]);
         if(isEmpty(pos)) return addKey(key);
 
         if(key < getKey(pos)) insert(key, getLeftPointer());
@@ -94,15 +101,15 @@ public class BinarySearchTree {
         return key;
     }
 
-//    public void printhelp(int pos, int level) {
-//        if (_tree[pos] == null)
-//            return;
-//        printhelp(rt.right(), level + 1);
-//        for (int i = 0; i < level; i++) // Indent based on level
-//            System.out.print("  ");
-//        System.out.println((Elem) rt.element()); // Print node value
-//        printhelp(rt.left(), level + 1);
-//    }
+    public void printTree(int pos, int level) {
+        if (pos == -1)
+            return;
+        printTree(getRight(pos), level + 1);
+        for (int i = 0; i < level; i++) // Indent based on level
+            System.out.print("  ");
+        System.out.println(_tree[pos][0]); // Print node value
+        printTree(getLeft(pos), level + 1);
+    }
 
     public void resetCurrentPos(){
         _currentPos = ROOT;
