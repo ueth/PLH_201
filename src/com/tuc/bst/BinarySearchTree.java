@@ -101,6 +101,17 @@ public class BinarySearchTree {
         return key;
     }
 
+    public int findKey(int pos, int key) {
+        if (pos == -1)
+            return -1;
+        if (_tree[pos][0] > key)
+            return findKey(getLeft(pos), key);
+        else if (_tree[pos][0] == key)
+            return pos;
+        else
+            return findKey(getRight(pos), key);
+    }
+
     public void printTree(int pos, int level) {
         if (pos == -1)
             return;
