@@ -8,20 +8,14 @@ public class Tool {
     static BinarySearchTree bst = new BinarySearchTree();
 
     public static void main(String[] args) {
-        bst.resetCurrentPos();
-
-        for(int i = 0; i<100; i++){
-            bst.insert(UniqueRandomGenerator.getInstance().getRandomKeys()[i], 0);
+        /*Fill the tree with random numbers*/
+        for(int i = 0; i<10000; i++){
+            bst.resetCurrentPos();
+            bst.insert(UniqueRandomGenerator.getInstance().getRandomInts()[i], 0);
         }
 
-        //bst.printTree(bst.getRoot(), 1);
-
-        //System.out.println(bst.findKey(bst.getRoot(), 100));
-
-
-
-
-//        System.out.println("in main" + bst.getTree()[bst.getRoot()][0]);
+        /*Search for a random number and print its position*/
+        System.out.println(bst.findKey(bst.getRoot(), UniqueRandomGenerator.getInstance().getRandomKeys()[99]));
 
     }
 }

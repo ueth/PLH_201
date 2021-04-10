@@ -1,12 +1,14 @@
 package com.tuc.bst;
 
+import com.tuc.interfaces.IBinarySearchTree;
+
 /**
  * Binary tree implemented with 2d array.
  * _tree[x][0] = key
  * _tree[x][1] = left node
  * _tree[x][2] = right node
  */
-public class BinarySearchTree {
+public class BinarySearchTree implements IBinarySearchTree {
 
     private static final int NUMBER_OF_NODES = 10000;
     private final int ROOT = 0;
@@ -14,8 +16,6 @@ public class BinarySearchTree {
     private final int[][] _tree;
     private int _currentPos;
     private int _nextPosition;
-    private int _parentPosition;
-
 
     public BinarySearchTree(){
         _currentPos = ROOT;
@@ -35,23 +35,11 @@ public class BinarySearchTree {
         _tree[NUMBER_OF_NODES-1][2] = 0;
     }
 
-    public int setRight(int position){
-        return _tree[_currentPos][2] = position;
-    }
-
-    public int setLeft(int position){
-        return _tree[_currentPos][1] = position;
-    }
-
-    public int setKey(int key){
-        return _tree[_currentPos][0] = key;
-    }
-
-    private int getRight(int pos){
+    public int getRight(int pos){
         return _tree[pos][2];
     }
 
-    private int getLeft(int pos){
+    public int getLeft(int pos){
         return _tree[pos][1];
     }
 
@@ -124,10 +112,6 @@ public class BinarySearchTree {
 
     public void resetCurrentPos(){
         _currentPos = ROOT;
-    }
-
-    public int[][] getTree() {
-        return _tree;
     }
 
     public int getRoot(){

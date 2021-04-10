@@ -1,5 +1,7 @@
 package com.tuc.tools;
 
+import java.util.Arrays;
+
 public class UniqueRandomGenerator {
     private static UniqueRandomGenerator _instance ;
 
@@ -8,6 +10,7 @@ public class UniqueRandomGenerator {
     private static int NO_OF_ELEMENTS = 10000;
 
     private static int[] _randomInts;
+    private static int[] _sortedInts;
     private static int _randomKeys[] = new int[100];
 
     private UniqueRandomGenerator(){
@@ -17,6 +20,8 @@ public class UniqueRandomGenerator {
     static {
         generateRandomNumbers();
         generateRandomKeys();
+        _sortedInts = _randomInts;
+        Arrays.sort(_sortedInts);
     }
 
     /**
@@ -36,6 +41,14 @@ public class UniqueRandomGenerator {
 
     public int[] getRandomKeys() {
         return _randomKeys;
+    }
+
+    public int[] getRandomInts() {
+        return _randomInts;
+    }
+
+    public int[] getSortedInts() {
+        return _sortedInts;
     }
 
     public static UniqueRandomGenerator getInstance() {
