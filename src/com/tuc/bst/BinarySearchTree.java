@@ -96,14 +96,14 @@ public class BinarySearchTree implements IBinarySearchTree {
     }
 
     public int findKey(int pos, int key) {
-        if (pos == -1)
+        if (pos == -1 && Counter.incCounter(1))
             return -1;
-        if (_tree[pos][0] > key)
+        if (_tree[pos][0] > key && Counter.incCounter(1))
             return findKey(getLeft(pos), key);
-        else if (_tree[pos][0] == key)
+        else if (_tree[pos][0] == key && Counter.incCounter(1))
             return pos;
         else
-            return findKey(getRight(pos), key);
+            return Counter.incCounter(1) ? findKey(getRight(pos), key) : 1;
     }
 
     public void printTree(int pos, int level) {

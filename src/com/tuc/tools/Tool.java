@@ -2,8 +2,6 @@ package com.tuc.tools;
 
 import com.tuc.bst.BinarySearchTree;
 
-import java.util.Arrays;
-
 public class Tool {
 
 
@@ -17,10 +15,19 @@ public class Tool {
             bst.insert(UniqueRandomGenerator.getInstance().getRandomInts()[i], 0);
         }
 
-        System.out.println("Times compared in insertion: " + Counter.getCounter(0));
+        System.out.println("Times compared in insertion in Binary Tree: " + Counter.getCounter(0)/10000);
 
-        /*Search for a random number and print its position*/
-        //System.out.println(bst.findKey(bst.getRoot(), UniqueRandomGenerator.getInstance().getRandomKeys()[99]));
+        /*Search for 100 random numbers*/
+        for(int i = 0; i<100; i++)
+            bst.findKey(bst.getRoot(), UniqueRandomGenerator.getInstance().getRandomKeys()[i]);
+
+        System.out.println("Times compared searching the key in Binary Tree: " + Counter.getCounter(1)/100);
+
+        for(int i = 0; i<100; i++)
+            BinarySearch.binarySearch(UniqueRandomGenerator.getInstance().getSortedInts(), 0,
+                    UniqueRandomGenerator.getInstance().getSortedInts().length, i);
+
+        System.out.println("Times compared searching the key: " + Counter.getCounter(4)/100);
 
     }
 }

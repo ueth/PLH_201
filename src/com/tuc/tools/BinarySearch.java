@@ -11,13 +11,13 @@ public class BinarySearch {
      */
     public static int binarySearch(int array[], int left, int right, int key)
     {
-        if (right >= left) {
+        if (right >= left && Counter.incCounter(4)) {
             int mid = left + (right - left) / 2;
 
-            if (array[mid] == key)
+            if (array[mid] == key && Counter.incCounter(4))
                 return mid;
 
-            if (array[mid] > key)
+            if (array[mid] > key && Counter.incCounter(4))
                 return binarySearch(array, left, mid - 1, key);
 
             return binarySearch(array, mid + 1, right, key);

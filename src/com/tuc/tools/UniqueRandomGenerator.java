@@ -1,8 +1,6 @@
 package com.tuc.tools;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -58,6 +56,10 @@ public class UniqueRandomGenerator {
 
     public static int[] getRandomInts() {
         return _randomInts;
+    }
+
+    public static int[] getRandomKeys() {
+        return _randomKeys;
     }
 
     public int[] getSortedInts() {
