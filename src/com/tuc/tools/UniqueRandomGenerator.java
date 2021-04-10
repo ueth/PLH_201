@@ -1,6 +1,10 @@
 package com.tuc.tools;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class UniqueRandomGenerator {
     private static UniqueRandomGenerator _instance ;
@@ -20,7 +24,7 @@ public class UniqueRandomGenerator {
     static {
         generateRandomNumbers();
         generateRandomKeys();
-        _sortedInts = _randomInts;
+        _sortedInts = Arrays.copyOf(_randomInts, NO_OF_ELEMENTS);
         Arrays.sort(_sortedInts);
     }
 
@@ -30,6 +34,7 @@ public class UniqueRandomGenerator {
     public static void generateRandomNumbers() {
         java.util.Random randomGenerator = new java.util.Random();
         _randomInts = randomGenerator.ints(START_INT, END_INT).distinct().limit(NO_OF_ELEMENTS).toArray();
+        shuffleArray(_randomInts);
     }
 
     public static void generateRandomKeys() {
@@ -39,11 +44,19 @@ public class UniqueRandomGenerator {
             _randomKeys[i] = _randomInts[r[i]];
     }
 
-    public int[] getRandomKeys() {
-        return _randomKeys;
+    static void shuffleArray(int[] ar) {
+        Random rnd = ThreadLocalRandom.current();
+
+        for (int i = ar.length - 1; i > 0; i--) {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            int a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
     }
 
-    public int[] getRandomInts() {
+    public static int[] getRandomInts() {
         return _randomInts;
     }
 

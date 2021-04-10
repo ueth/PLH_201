@@ -8,13 +8,14 @@ package com.tuc.tools;
  * _counter[4] -> counts comparisons in sorted array with binary search
  */
 public class Counter {
-    int[] _counter = new int[5];
+    private static int[] _counter = new int[5];
 
-    public void incCounter(int pos){
+    public static boolean incCounter(int pos){
         _counter[pos]++;
+        return true;
     }
 
-    public int getCounter(int pos){
+    public static int getCounter(int pos){
         return _counter[pos];
     }
 }

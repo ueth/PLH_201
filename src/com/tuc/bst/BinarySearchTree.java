@@ -1,6 +1,7 @@
 package com.tuc.bst;
 
 import com.tuc.interfaces.IBinarySearchTree;
+import com.tuc.tools.Counter;
 
 /**
  * Binary tree implemented with 2d array.
@@ -82,10 +83,15 @@ public class BinarySearchTree implements IBinarySearchTree {
     }
 
     public int insert(int key, int pos){
-        if(isEmpty(pos)) return addKey(key);
+        if(isEmpty(pos) && Counter.incCounter(0))
+            return addKey(key);
 
-        if(key < getKey(pos)) insert(key, getLeftPointer());
-        else insert(key, getRightPointer());
+        if((key < getKey(pos)) && Counter.incCounter(0))
+            insert(key, getLeftPointer());
+
+        else if(Counter.incCounter(0))
+            insert(key, getRightPointer());
+
         return key;
     }
 
