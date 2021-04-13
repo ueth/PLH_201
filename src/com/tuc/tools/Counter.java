@@ -6,9 +6,11 @@ package com.tuc.tools;
  * _counter[2] -> counts comparisons in ThreadedBinarySearchTree insert
  * _counter[3] -> counts comparisons in ThreadedBinarySearchTree findKey
  * _counter[4] -> counts comparisons in sorted array with binary search
+ * _counter[5] -> counts comparisons in BinarySearchTree rangeSearch
+ * _counter[6] -> counts comparisons in ThreadedBinarySearchTree rangeSearch
  */
 public class Counter {
-    private static int[] _counter = new int[5];
+    private static int[] _counter = new int[7];
 
     public static boolean incCounter(int pos){
         _counter[pos]++;
