@@ -40,9 +40,9 @@ public class ThreadedBinaryTree implements IBinaryTree {
 
     public int getLeftThread(int pos){ return _tree[pos][3];}
 
-    private void setLeft(int num, int pos){_tree[pos][2] = num;}
+    private void setLeft(int num, int pos){_tree[pos][1] = num;}
 
-    private void setRight(int num, int pos){_tree[pos][1] = num;}
+    private void setRight(int num, int pos){_tree[pos][2] = num;}
 
     public int getRight(int pos){ return _tree[pos][2]; }
 
@@ -64,7 +64,9 @@ public class ThreadedBinaryTree implements IBinaryTree {
     public int addKey(int key, int pos){
         _nextPosition = getNextAvailablePosition(pos);
         _tree[pos][0] = key;
-        return key;
+        _tree[pos][1] = -1;
+        _tree[pos][2] = -1;
+        return _nextPosition;
     }
 
     public int getRightPointer() {
@@ -88,36 +90,43 @@ public class ThreadedBinaryTree implements IBinaryTree {
 
             parentPos = pos;
 
-            if(key < getKey(pos ) && Counter.incCounter(2)){
+            if(key < getKey(pos) && Counter.incCounter(2)){
                 if(getLeftThread(pos) == -1 && Counter.incCounter(2))
                     pos = getLeft(pos);
                 else
                     break;
             }
             else{
-                if(getLeftThread(pos) == -1 && Counter.incCounter(2))
+                if(getRightThread(pos) == -1 && Counter.incCounter(2))
                     pos = getRight(pos);
                 else
                     break;
             }
         }
 
-        if(parentPos == -1 && Counter.incCounter(2)){
+        if(parentPos == -1){
             addKey(key, pos);
             setLeftThread(1, pos);
             setRightThread(1, pos);
+            return pos;
         }
-        else if(key < getKey(parentPos ) && Counter.incCounter(2)){
-            setLeft(getLeft(parentPos), getLeft(pos));
-            setRight(parentPos, getRight(pos));
+
+        pos = _nextPosition;
+        addKey(key, pos);
+        setLeftThread(1, pos);
+        setRightThread(1, pos);
+
+        if(key < getKey(parentPos ) && Counter.incCounter(2)){
+            setLeft(getLeft(parentPos), pos);
+            setRight(parentPos, pos);
             setLeftThread(-1, parentPos);
-            setLeft(pos, getLeft(parentPos));
+            setLeft(pos, parentPos);
         }
         else{
-            setLeft(parentPos, getLeft(pos));
-            setRight(getRight(parentPos), getRight(pos));
+            setLeft(parentPos, pos);
+            setRight(getRight(parentPos), pos);
             setRightThread(-1, parentPos);
-            setRight(pos, getLeft(parentPos));
+            setRight(pos, parentPos);
         }
 
         return pos;
