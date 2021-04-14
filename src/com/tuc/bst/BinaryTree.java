@@ -83,55 +83,40 @@ public class BinaryTree implements IBinaryTree {
     }
 
     public int insert(int key, int pos){
-        if(isEmpty(pos) && Counter.incCounter(0))
+        if(Counter.incCounter(0) && isEmpty(pos))
             return addKey(key);
 
-        if((key < getKey(pos)) && Counter.incCounter(0))
+        if(Counter.incCounter(0) && (key < getKey(pos)))
             insert(key, getLeftPointer());
-
-        else if(Counter.incCounter(0))
+        else
             insert(key, getRightPointer());
 
         return key;
     }
 
     public void rangeSearch(int pos, int k1, int k2){
-        if(pos == -1)
+        if(Counter.incCounter(5) && pos == -1)
             return;
 
-        if(k1 <= _tree[pos][0] && Counter.incCounter(5))
+        if(Counter.incCounter(5) && k1 <= _tree[pos][0])
             rangeSearch(getLeft(pos), k1, k2);
 
-        if(k1 <= _tree[pos][0] && k2 >= _tree[pos][0] && Counter.incCounter(5)){}
+        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= _tree[pos][0] && k2 >= _tree[pos][0]){}
 
-        if(k2 >= _tree[pos][0] && Counter.incCounter(5))
+        if(Counter.incCounter(5) && k2 >= _tree[pos][0])
             rangeSearch(getRight(pos), k1, k2);
     }
 
     public int findKey(int pos, int key) {
-        if (pos == -1 && Counter.incCounter(1))
+        if (Counter.incCounter(1) && pos == -1)
             return -1;
 
-        if (_tree[pos][0] > key && Counter.incCounter(1))
+        if (Counter.incCounter(1) && _tree[pos][0] > key)
             return findKey(getLeft(pos), key);
-
-        else if (_tree[pos][0] == key && Counter.incCounter(1))
+        else if (Counter.incCounter(1) && _tree[pos][0] == key)
             return pos;
-        else
-            return Counter.incCounter(1) ? findKey(getRight(pos), key) : 1;
-    }
 
-    public void printTree(int pos, int level) {
-        if (pos == -1)
-            return;
-
-        printTree(getRight(pos), level + 1);
-
-        for (int i = 0; i < level; i++) // Indent based on level
-            System.out.print("  ");
-
-        System.out.println(_tree[pos][0]); // Print node value
-        printTree(getLeft(pos), level + 1);
+        return findKey(getRight(pos), key);
     }
 
     public void resetCurrentPos(){

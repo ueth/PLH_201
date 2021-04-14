@@ -17,6 +17,10 @@ public class Counter {
         return true;
     }
 
+    public static void clearCounter(int pos){
+        _counter[pos] = 0;
+    }
+
     public static int getCounter(int pos){
         return _counter[pos];
     }

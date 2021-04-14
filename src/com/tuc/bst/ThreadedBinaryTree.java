@@ -81,30 +81,30 @@ public class ThreadedBinaryTree implements IBinaryTree {
 
         int parentPos=-1;
 
-        while(getKey(pos) != -1 && Counter.incCounter(2)){
+        while(Counter.incCounter(2) && getKey(pos) != -1){
 
-            if(getKey(pos) == key && Counter.incCounter(2)){
+            if(Counter.incCounter(2) && getKey(pos) == key){
                 System.out.printf("Duplicate Key !\n");
                 return key;
             }
 
             parentPos = pos;
 
-            if(key < getKey(pos) && Counter.incCounter(2)){
-                if(getLeftThread(pos) == -1 && Counter.incCounter(2))
+            if(Counter.incCounter(2) && key < getKey(pos)){
+                if(Counter.incCounter(2) && getLeftThread(pos) == -1)
                     pos = getLeft(pos);
                 else
                     break;
             }
             else{
-                if(getRightThread(pos) == -1 && Counter.incCounter(2))
+                if(Counter.incCounter(2) && getRightThread(pos) == -1)
                     pos = getRight(pos);
                 else
                     break;
             }
         }
 
-        if(parentPos == -1){
+        if(Counter.incCounter(2) && parentPos == -1){
             addKey(key, pos);
             setLeftThread(1, pos);
             setRightThread(1, pos);
@@ -116,7 +116,7 @@ public class ThreadedBinaryTree implements IBinaryTree {
         setLeftThread(1, pos);
         setRightThread(1, pos);
 
-        if(key < getKey(parentPos ) && Counter.incCounter(2)){
+        if(Counter.incCounter(2) && key < getKey(parentPos)){
             setLeft(getLeft(parentPos), pos);
             setRight(parentPos, pos);
             setLeftThread(-1, parentPos);
@@ -133,6 +133,46 @@ public class ThreadedBinaryTree implements IBinaryTree {
     }
 
     public int findKey(int pos, int key) {
-        return 0;
+        if (Counter.incCounter(3) && pos == -1)
+            return -1;
+        else if (Counter.incCounter(3) && getKey(pos) == key)
+            return key;
+
+        while(Counter.incCounter(3) && pos != -1){
+            if(Counter.incCounter(3) && key < getKey(pos))
+                pos = getLeft(pos);
+            else
+                pos = getRight(pos);
+            if(Counter.incCounter(3) && key == getKey(pos))
+                break;
+        }
+
+        if(Counter.incCounter(3) && pos != -1)
+            return key;
+
+        return -1;
     }
+
+    /*public void rangeSearch(int pos, int k1, int k2){
+        if(Counter.incCounter(6) && pos == -1)
+            return;
+
+        while(Counter.incCounter(6) && pos != -1){
+            if(Counter.incCounter(6) && k1 <= getKey(pos)){
+                pos = getLeft(pos);
+            }
+
+            else if(Counter.incCounter(6) && k1 <= getKey(pos) && k2 >= getLeft(pos)){
+                System.out.println("Key found: " + getKey(pos));
+            }
+
+
+            else if(Counter.incCounter(6) && k2 >= getLeft(pos)){
+                pos = getRight(pos);
+            }
+
+            if(k2 < getLeft(pos) || k1 > getRight(pos))
+                break;
+        }
+    }*/
 }
