@@ -19,11 +19,11 @@ public class Tool {
         System.out.println("---BinaryTree Searches---");
 
         /*Fill the tree with random numbers*/
-        for(int i = 0; i<10000; i++){
+        for(int i = 0; i<100000; i++){
             bst.resetCurrentPos();
             bst.insert(UniqueRandomGenerator.getInstance().getRandomInts()[i], 0);
         }
-        System.out.println("Times compared in insertion in Binary Tree: " + Counter.getCounter(0)/10000);
+        System.out.println("Times compared in insertion in Binary Tree: " + Counter.getCounter(0)/100000);
 
         /*Search for 100 random numbers*/
         for(int i = 0; i<100; i++)
@@ -44,9 +44,9 @@ public class Tool {
         System.out.println("---ThreadedBinaryTree Searches---");
 
         /*Fill the tree with random numbers*/
-        for(int i = 0; i<10000; i++)
+        for(int i = 0; i<100000; i++)
             tbst.insert(UniqueRandomGenerator.getInstance().getRandomInts()[i], 0);
-        System.out.println("Times compared in insertion in Threaded Binary Tree: " + Counter.getCounter(2)/10000);
+        System.out.println("Times compared in insertion in Threaded Binary Tree: " + Counter.getCounter(2)/100000);
 
         /*Search for 100 random numbers*/
         for(int i = 0; i<100; i++)

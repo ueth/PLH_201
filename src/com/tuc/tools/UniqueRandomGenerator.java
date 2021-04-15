@@ -9,7 +9,7 @@ public class UniqueRandomGenerator {
 
     private static int START_INT = 1;
     private static int END_INT = 1000001;
-    private static int NO_OF_ELEMENTS = 10000;
+    private static int NO_OF_ELEMENTS = 100000;
 
     private static int[] _randomInts;
     private static int[] _sortedInts;

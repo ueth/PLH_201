@@ -11,7 +11,7 @@ import com.tuc.tools.Counter;
  */
 public class BinaryTree implements IBinaryTree {
 
-    private static final int NUMBER_OF_NODES = 10000;
+    private static final int NUMBER_OF_NODES = 100000;
     private final int ROOT = 0;
 
     private final int[][] _tree;
@@ -47,7 +47,7 @@ public class BinaryTree implements IBinaryTree {
     }
 
     public boolean isEmpty(int pos){
-        return _tree[pos][0] == -1 && _tree[pos][1] == -1;
+        return _tree[pos][0] == -1;
     }
 
     public int getNextAvailablePosition(){
@@ -86,7 +86,7 @@ public class BinaryTree implements IBinaryTree {
         if(Counter.incCounter(0) && isEmpty(pos))
             return addKey(key);
 
-        if(Counter.incCounter(0) && (key < getKey(pos)))
+        if(Counter.incCounter(0) && key < getKey(pos))
             insert(key, getLeftPointer());
         else
             insert(key, getRightPointer());
@@ -101,7 +101,9 @@ public class BinaryTree implements IBinaryTree {
         if(Counter.incCounter(5) && k1 <= _tree[pos][0])
             rangeSearch(getLeft(pos), k1, k2);
 
-        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= _tree[pos][0] && k2 >= _tree[pos][0]){}
+        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= _tree[pos][0] && k2 >= _tree[pos][0]){
+            /*System.out.println("Key found: " + getKey(pos));*/
+        }
 
         if(Counter.incCounter(5) && k2 >= _tree[pos][0])
             rangeSearch(getRight(pos), k1, k2);

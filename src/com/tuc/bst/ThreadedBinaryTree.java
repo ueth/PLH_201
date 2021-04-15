@@ -5,15 +5,12 @@ import com.tuc.tools.Counter;
 
 public class ThreadedBinaryTree implements IBinaryTree {
 
-    private static final int NUMBER_OF_NODES = 10000;
-    private final int ROOT = 0;
+    private static final int NUMBER_OF_NODES = 100000;
 
     private final int[][] _tree;
-    private int _currentPos;
     private int _nextPosition;
 
     public ThreadedBinaryTree(){
-        _currentPos = ROOT;
         _tree = new int[NUMBER_OF_NODES][5];
         initTree();
     }
@@ -32,41 +29,36 @@ public class ThreadedBinaryTree implements IBinaryTree {
         _tree[NUMBER_OF_NODES-1][2] = 0;
     }
 
-    private void setLeftThread(int num, int pos){_tree[pos][3] = num;}
-
-    private void setRightThread(int num, int pos){_tree[pos][4] = num;}
-
-    public int getRightThread(int pos){ return _tree[pos][4];}
-
-    public int getLeftThread(int pos){ return _tree[pos][3];}
-
-    private void setLeft(int num, int pos){_tree[pos][1] = num;}
-
-    private void setRight(int num, int pos){_tree[pos][2] = num;}
-
+    public int getRightThread(int pos){ return _tree[pos][4]; }
+    public int getLeftThread(int pos){ return _tree[pos][3]; }
     public int getRight(int pos){ return _tree[pos][2]; }
-
     public int getLeft(int pos){
         return _tree[pos][1];
     }
+
+    private void setRightThread(int num, int pos){ _tree[pos][4] = num; }
+    private void setLeftThread(int num, int pos){ _tree[pos][3] = num; }
+    private void setRight(int num, int pos){ _tree[pos][2] = num; }
+    private void setLeft(int num, int pos){ _tree[pos][1] = num; }
+
+    private boolean isRightThread(int pos){ return getRightThread(pos) == 1; }
+    private boolean isLeftThread(int pos){ return getLeftThread(pos) == 1; }
 
     public int getKey(int pos){
         return _tree[pos][0];
     }
 
-    public int getNextAvailablePosition(int pos){ return _tree[pos][2]; }
-
     /**
      * When adding a key we must hold the next available position
      * @param key
-     * @return key
      */
-    public int addKey(int key, int pos){
-        _nextPosition = getNextAvailablePosition(pos);
+    public void addKey(int key, int pos){
+        _nextPosition = _tree[pos][2];
         _tree[pos][0] = key;
-        _tree[pos][1] = -1;
-        _tree[pos][2] = -1;
-        return _nextPosition;
+        setLeft(-1, pos);
+        setRight(-1, pos);
+        setLeftThread(1, pos);
+        setRightThread(1, pos);
     }
 
     public int getRightPointer() {
@@ -82,22 +74,16 @@ public class ThreadedBinaryTree implements IBinaryTree {
         int parentPos=-1;
 
         while(Counter.incCounter(2) && getKey(pos) != -1){
-
-            if(Counter.incCounter(2) && getKey(pos) == key){
-                System.out.printf("Duplicate Key !\n");
-                return key;
-            }
-
             parentPos = pos;
 
             if(Counter.incCounter(2) && key < getKey(pos)){
-                if(Counter.incCounter(2) && getLeftThread(pos) == -1)
+                if(Counter.incCounter(2) && !isLeftThread(pos))
                     pos = getLeft(pos);
                 else
                     break;
             }
             else{
-                if(Counter.incCounter(2) && getRightThread(pos) == -1)
+                if(Counter.incCounter(2) && !isRightThread(pos))
                     pos = getRight(pos);
                 else
                     break;
@@ -106,15 +92,11 @@ public class ThreadedBinaryTree implements IBinaryTree {
 
         if(Counter.incCounter(2) && parentPos == -1){
             addKey(key, pos);
-            setLeftThread(1, pos);
-            setRightThread(1, pos);
             return pos;
         }
 
         pos = _nextPosition;
         addKey(key, pos);
-        setLeftThread(1, pos);
-        setRightThread(1, pos);
 
         if(Counter.incCounter(2) && key < getKey(parentPos)){
             setLeft(getLeft(parentPos), pos);
@@ -135,8 +117,6 @@ public class ThreadedBinaryTree implements IBinaryTree {
     public int findKey(int pos, int key) {
         if (Counter.incCounter(3) && pos == -1)
             return -1;
-        else if (Counter.incCounter(3) && getKey(pos) == key)
-            return key;
 
         while(Counter.incCounter(3) && pos != -1){
             if(Counter.incCounter(3) && key < getKey(pos))
@@ -147,32 +127,31 @@ public class ThreadedBinaryTree implements IBinaryTree {
                 break;
         }
 
-        if(Counter.incCounter(3) && pos != -1)
+        if(Counter.incCounter(3) && pos != -1) {
+            /*System.out.println("Key found "+ getKey(pos));*/
             return key;
+        }
 
         return -1;
     }
 
-    /*public void rangeSearch(int pos, int k1, int k2){
-        if(Counter.incCounter(6) && pos == -1)
-            return;
+    private int leftMost(int pos){
+        while(getLeft(pos) != -1 && !isLeftThread(pos))
+            pos = getLeft(pos);
 
-        while(Counter.incCounter(6) && pos != -1){
-            if(Counter.incCounter(6) && k1 <= getKey(pos)){
-                pos = getLeft(pos);
-            }
+        return pos;
+    }
 
-            else if(Counter.incCounter(6) && k1 <= getKey(pos) && k2 >= getLeft(pos)){
-                System.out.println("Key found: " + getKey(pos));
-            }
+    public void rangeSearch(int pos, int k1, int k2){
+        pos = leftMost(pos);
 
+        while(pos != -1){
+            System.out.println("Key "+ getKey(pos));
 
-            else if(Counter.incCounter(6) && k2 >= getLeft(pos)){
+            if(isRightThread(pos))
                 pos = getRight(pos);
-            }
-
-            if(k2 < getLeft(pos) || k1 > getRight(pos))
-                break;
+            else
+                pos = leftMost(getRight(pos));
         }
-    }*/
+    }
 }

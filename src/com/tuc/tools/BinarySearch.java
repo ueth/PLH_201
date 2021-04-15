@@ -9,7 +9,7 @@ public class BinarySearch {
      * @param key
      * @return the position of the key in the array
      */
-    public static int binarySearch(int array[], int left, int right, int key)
+    public static int binarySearch(int[] array, int left, int right, int key)
     {
         if (right >= left && Counter.incCounter(4)) {
             int mid = left + (right - left) / 2;
