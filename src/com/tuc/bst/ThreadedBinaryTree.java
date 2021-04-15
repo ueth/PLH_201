@@ -135,23 +135,26 @@ public class ThreadedBinaryTree implements IBinaryTree {
         return -1;
     }
 
-    private int leftMost(int pos){
-        while(getLeft(pos) != -1 && !isLeftThread(pos))
+    private int leftMost(int pos, int k1){
+
+        while(Counter.incCounter(6) && Counter.incCounter(6) && !isLeftThread(pos) && k1 <= getKey(pos))
             pos = getLeft(pos);
 
         return pos;
     }
 
     public void rangeSearch(int pos, int k1, int k2){
-        pos = leftMost(pos);
+        pos = leftMost(pos, k1);
 
-        while(pos != -1){
-            System.out.println("Key "+ getKey(pos));
+        while(Counter.incCounter(6) && k2 >= getKey(pos)){
+            if(Counter.incCounter(6) && k1 <= getKey(pos)) {
+                /*System.out.println("Key "+ getKey(pos));*/
+            }
 
-            if(isRightThread(pos))
+            if(Counter.incCounter(6) && isRightThread(pos))
                 pos = getRight(pos);
             else
-                pos = leftMost(getRight(pos));
+                pos = leftMost(getRight(pos), k1);
         }
     }
 }

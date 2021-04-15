@@ -30,13 +30,17 @@ public class Tool {
             bst.findKey(bst.getRoot(), UniqueRandomGenerator.getInstance().getRandomKeys()[i]);
         System.out.println("Times compared searching a random key in Binary Tree: " + Counter.getCounter(1)/100);
 
-        bst.rangeSearch(bst.getRoot(), 50000, 50100);
-        System.out.println("Times compared searching a key with range search in Binary Tree (when K=100): " + Counter.getCounter(5));
+        for(int i=0; i<100; i++){
+            bst.rangeSearch(0, i*100, i*100+100);
+        }
+        System.out.println("Times compared searching a key with range search in Binary Tree (when K=100): " + Counter.getCounter(5)/100);
 
         Counter.clearCounter(5);
 
-        bst.rangeSearch(bst.getRoot(), 50000, 51000);
-        System.out.println("Times compared searching a key with range search in Binary Tree (when K=1000): " + Counter.getCounter(5));
+        for(int i=0; i<100; i++){
+            bst.rangeSearch(0, i*100, i*100+1000);
+        }
+        System.out.println("Times compared searching a key with range search in Binary Tree (when K=1000): " + Counter.getCounter(5)/100);
     }
 
     private static void threadedBinaryTreeOperations(){
@@ -53,13 +57,19 @@ public class Tool {
             tbst.findKey(0, UniqueRandomGenerator.getInstance().getRandomKeys()[i]);
         System.out.println("Times compared searching a random key in Threaded Binary Tree: " + Counter.getCounter(3)/100);
 
-        tbst.rangeSearch(0, 50000, 50100);
-        System.out.println("Times compared searching a key with range search in Threaded Binary Tree (when K=100): " + Counter.getCounter(6));
+        for(int i=0; i<100; i++){
+            tbst.rangeSearch(0, i*100, i*100+100);
+        }
+
+        System.out.println("Times compared searching a key with range search in Threaded Binary Tree (when K=100): " + Counter.getCounter(6)/100);
 
         Counter.clearCounter(6);
 
-        tbst.rangeSearch(0, 50000, 51000);
-        System.out.println("Times compared searching a key with range search in Threaded Binary Tree (when K=1000): " + Counter.getCounter(6));
+        for(int i=0; i<100; i++){
+            tbst.rangeSearch(0, i*100, i*100+1000);
+        }
+
+        System.out.println("Times compared searching a key with range search in Threaded Binary Tree (when K=1000): " + Counter.getCounter(6)/100);
     }
 
     private static void sortedArrayOperations(){
