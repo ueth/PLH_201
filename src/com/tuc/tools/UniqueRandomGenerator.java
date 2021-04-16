@@ -5,18 +5,16 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class UniqueRandomGenerator {
-    private static UniqueRandomGenerator _instance ;
 
-    private static int START_INT = 1;
-    private static int END_INT = 1000001;
-    private static int NO_OF_ELEMENTS = 100000;
+    private static final int START_INT = 1;
+    private static final int END_INT = 1000001;
+    private static final int NO_OF_ELEMENTS = 100000;
 
     private static int[] _randomInts;
-    private static int[] _sortedInts;
-    private static int _randomKeys[] = new int[100];
+    private static final int[] _sortedInts;
+    private static final int[] _randomKeys = new int[100];
 
-    private UniqueRandomGenerator(){
-
+    private UniqueRandomGenerator() {
     }
 
     static {
@@ -37,11 +35,14 @@ public class UniqueRandomGenerator {
 
     public static void generateRandomKeys() {
         java.util.Random randomGenerator = new java.util.Random();
-        int r[] = randomGenerator.ints(START_INT, NO_OF_ELEMENTS).distinct().limit(100).toArray();
-        for(int i = 0; i < 100; i++)
+        int[] r = randomGenerator.ints(START_INT, NO_OF_ELEMENTS).distinct().limit(100).toArray();
+        for (int i = 0; i < 100; i++)
             _randomKeys[i] = _randomInts[r[i]];
     }
 
+    /**
+     * Shuffles the array in order to be randomized
+     */
     static void shuffleArray(int[] ar) {
         Random rnd = ThreadLocalRandom.current();
 
@@ -62,11 +63,7 @@ public class UniqueRandomGenerator {
         return _randomKeys;
     }
 
-    public int[] getSortedInts() {
+    public static int[] getSortedInts() {
         return _sortedInts;
-    }
-
-    public static UniqueRandomGenerator getInstance() {
-        return _instance == null ? _instance = new UniqueRandomGenerator() : _instance;
     }
 }

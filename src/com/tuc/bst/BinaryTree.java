@@ -4,7 +4,7 @@ import com.tuc.interfaces.IBinaryTree;
 import com.tuc.tools.Counter;
 
 /**
- * Binary tree implemented with 2d array.
+ * Binary Tree implemented with 2d array.
  * _tree[x][0] = key
  * _tree[x][1] = left node
  * _tree[x][2] = right node
@@ -36,76 +36,79 @@ public class BinaryTree implements IBinaryTree {
         _tree[NUMBER_OF_NODES-1][2] = 0;
     }
 
-    public int getRight(int pos){ return _tree[pos][2]; }
+    public void resetCurrentPos(){ _currentPos = ROOT; }
+    public int getRoot(){ return ROOT; }
 
+    public int getRight(int pos){ return _tree[pos][2]; }
     public int getLeft(int pos){
         return _tree[pos][1];
     }
-
+    public void setRight(int num, int pos) { _tree[pos][2] = num; }
+    public void setLeft(int num, int pos) { _tree[pos][1] = num; }
     public int getKey(int pos){
         return _tree[pos][0];
     }
 
-    public boolean isEmpty(int pos){
-        return _tree[pos][0] == -1;
-    }
+    public boolean isEmpty(int pos){ return getKey(pos) == -1; }
 
-    public int getNextAvailablePosition(){
-        return isEmpty(_currentPos) ? _tree[_currentPos][2] : -1;
+    public int getNextAvailablePosition(){ return _tree[_currentPos][2]; }
+
+    /**
+     * When we add a new key we must hold the next available position
+     */
+    public void addKey(int key){
+        _nextPosition = getNextAvailablePosition();
+        _tree[_currentPos][0] = key;
+        setLeft(-1, _currentPos);
+        setRight(-1, _currentPos);
     }
 
     /**
-     * When adding a key we must hold the next available position
-     * @param key
-     * @return key
+     * If the left node is free, then we set it to the next available position
+     * @return currentPosition to add the key to
      */
-    public int addKey(int key){
-        _nextPosition = getNextAvailablePosition();
-        _tree[_currentPos][0] = key;
-        _tree[_currentPos][1] = -1;
-        _tree[_currentPos][2] = -1;
-
-        return key;
-    }
-
     public int getLeftPointer(){
-        if(_tree[_currentPos][1] == -1)
-            _tree[_currentPos][1] = _nextPosition;
+        if(getLeft(_currentPos) == -1)
+            setLeft(_nextPosition, _currentPos);
 
-        return _currentPos = _tree[_currentPos][1];
+        return _currentPos = getLeft(_currentPos);
     }
 
+    /**
+     * If the right node is free, then we set it to the next available position
+     * @return currentPosition to add the key to
+     */
     public int getRightPointer() {
-        if(_tree[_currentPos][2] == -1)
-            _tree[_currentPos][2] = _nextPosition;
+        if(getRight(_currentPos) == -1)
+            setRight(_nextPosition, _currentPos);
 
-        return _currentPos = _tree[_currentPos][2];
+        return _currentPos = getRight(_currentPos);
     }
 
-    public int insert(int key, int pos){
-        if(Counter.incCounter(0) && isEmpty(pos))
-            return addKey(key);
+    public void insert(int key, int pos){
+        if(Counter.incCounter(0) && isEmpty(pos)) {
+            addKey(key);
+            return;
+        }
 
         if(Counter.incCounter(0) && key < getKey(pos))
             insert(key, getLeftPointer());
         else
             insert(key, getRightPointer());
-
-        return key;
     }
 
     public void rangeSearch(int pos, int k1, int k2){
         if(Counter.incCounter(5) && pos == -1)
             return;
 
-        if(Counter.incCounter(5) && k1 <= _tree[pos][0])
+        if(Counter.incCounter(5) && k1 <= getKey(pos))
             rangeSearch(getLeft(pos), k1, k2);
 
-        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= _tree[pos][0] && k2 >= _tree[pos][0]){
+        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= getKey(pos) && k2 >= getKey(pos)){
             /*System.out.println("Key found: " + getKey(pos));*/
         }
 
-        if(Counter.incCounter(5) && k2 >= _tree[pos][0])
+        if(Counter.incCounter(5) && k2 >= getKey(pos))
             rangeSearch(getRight(pos), k1, k2);
     }
 
@@ -113,19 +116,11 @@ public class BinaryTree implements IBinaryTree {
         if (Counter.incCounter(1) && pos == -1)
             return -1;
 
-        if (Counter.incCounter(1) && _tree[pos][0] > key)
+        if (Counter.incCounter(1) && getKey(pos) > key)
             return findKey(getLeft(pos), key);
-        else if (Counter.incCounter(1) && _tree[pos][0] == key)
+        else if (Counter.incCounter(1) && getKey(pos) == key)
             return pos;
 
         return findKey(getRight(pos), key);
-    }
-
-    public void resetCurrentPos(){
-        _currentPos = ROOT;
-    }
-
-    public int getRoot(){
-        return ROOT;
     }
 }

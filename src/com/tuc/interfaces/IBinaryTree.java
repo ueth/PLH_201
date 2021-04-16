@@ -3,11 +3,17 @@ package com.tuc.interfaces;
 public interface IBinaryTree {
 
     int getRight(int pos);
+
     int getLeft(int pos);
+
     int getKey(int pos);
-    int getRightPointer();
-    int getLeftPointer();
-    int insert(int key, int pos);
+
+    void setRight(int num, int pos);
+
+    void setLeft(int num, int pos);
+
+    void insert(int key, int pos);
+
     int findKey(int pos, int key);
 
 }

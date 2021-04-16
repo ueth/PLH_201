@@ -10,18 +10,18 @@ package com.tuc.tools;
  * _counter[6] -> counts comparisons in ThreadedBinarySearchTree rangeSearch
  */
 public class Counter {
-    private static int[] _counter = new int[7];
+    private static final int[] _counter = new int[7];
 
-    public static boolean incCounter(int pos){
+    public static boolean incCounter(int pos) {
         _counter[pos]++;
         return true;
     }
 
-    public static void clearCounter(int pos){
+    public static void clearCounter(int pos) {
         _counter[pos] = 0;
     }
 
-    public static int getCounter(int pos){
+    public static int getCounter(int pos) {
         return _counter[pos];
     }
 }
