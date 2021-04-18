@@ -97,6 +97,6 @@ public class Tool {
         for (int i = 0; i < 100; i++) {
             BinarySearch.binarySearch(UniqueRandomGenerator.getSortedInts(), i * 100 + ran, i * 100 + ran + 1000, i * 100 + ran);
         }
-        System.out.println("Times compared searching the key with range search: (K = 1000)" + Counter.getCounter(4) / 100);
+        System.out.println("Times compared searching the key with range search (K = 1000): " + Counter.getCounter(4) / 100);
     }
 }
