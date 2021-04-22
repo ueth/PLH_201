@@ -78,24 +78,25 @@ public class Tool {
         System.out.println();
         System.out.println("---Binary Searches---");
 
+        Random random = new Random();
+        int ran = random.nextInt(1000);
+
         for (int i = 0; i < 100; i++)
             BinarySearch.binarySearch(UniqueRandomGenerator.getSortedInts(), 0,
-                    UniqueRandomGenerator.getSortedInts().length, i);
+                    UniqueRandomGenerator.getSortedInts().length, i + ran);
         System.out.println("Times compared searching the key: " + Counter.getCounter(4) / 100);
 
         Counter.clearCounter(4);
-        Random random = new Random();
-        int ran = random.nextInt(65498);
 
         for (int i = 0; i < 100; i++) {
-            BinarySearch.binarySearch(UniqueRandomGenerator.getSortedInts(), i * 100 + ran, i * 100 + ran + 100, i * 100 + ran);
+            BinarySearch.binaryRangeSearch(UniqueRandomGenerator.getSortedInts(), i * 100 + ran , i * 100 + ran + 100);
         }
         System.out.println("Times compared searching the key with range search (K = 100): " + Counter.getCounter(4) / 100);
 
         Counter.clearCounter(4);
 
         for (int i = 0; i < 100; i++) {
-            BinarySearch.binarySearch(UniqueRandomGenerator.getSortedInts(), i * 100 + ran, i * 100 + ran + 1000, i * 100 + ran);
+            BinarySearch.binaryRangeSearch(UniqueRandomGenerator.getSortedInts(), i * 100 + ran , i * 100 + ran + 1000);
         }
         System.out.println("Times compared searching the key with range search (K = 1000): " + Counter.getCounter(4) / 100);
     }

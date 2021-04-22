@@ -61,6 +61,13 @@ public class ThreadedBinaryTree implements IBinaryTree {
         setRight(-1, pos);
         setLeftThread(1, pos);
         setRightThread(1, pos);
+
+        Counter.incCounter(2);
+        Counter.incCounter(2);
+        Counter.incCounter(2);
+        Counter.incCounter(2);
+        Counter.incCounter(2);
+        Counter.incCounter(2);
     }
 
     public void insert(int key, int pos) {
@@ -68,16 +75,21 @@ public class ThreadedBinaryTree implements IBinaryTree {
 
         while(Counter.incCounter(2) && getKey(pos) != -1){
             parentPos = pos;
+            Counter.incCounter(2);
 
             if(Counter.incCounter(2) && key < getKey(pos)){
-                if(Counter.incCounter(2) && !isLeftThread(pos))
+                if(Counter.incCounter(2) && !isLeftThread(pos)) {
                     pos = getLeft(pos);
+                    Counter.incCounter(2);
+                }
                 else
                     break;
             }
             else{
-                if(Counter.incCounter(2) && !isRightThread(pos))
+                if(Counter.incCounter(2) && !isRightThread(pos)) {
                     pos = getRight(pos);
+                    Counter.incCounter(2);
+                }
                 else
                     break;
             }
@@ -89,6 +101,7 @@ public class ThreadedBinaryTree implements IBinaryTree {
         }
 
         pos = _nextPosition;
+        Counter.incCounter(2);
         addKey(key, pos);
 
         if(Counter.incCounter(2) && key < getKey(parentPos)){
@@ -96,12 +109,20 @@ public class ThreadedBinaryTree implements IBinaryTree {
             setRight(parentPos, pos);
             setLeftThread(-1, parentPos);
             setLeft(pos, parentPos);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
         }
         else{
             setLeft(parentPos, pos);
             setRight(getRight(parentPos), pos);
             setRightThread(-1, parentPos);
             setRight(pos, parentPos);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
+            Counter.incCounter(2);
         }
     }
 
@@ -110,10 +131,14 @@ public class ThreadedBinaryTree implements IBinaryTree {
             return -1;
 
         while(Counter.incCounter(3) && pos != -1){
-            if(Counter.incCounter(3) && key < getKey(pos))
+            if(Counter.incCounter(3) && key < getKey(pos)) {
                 pos = getLeft(pos);
-            else
+                Counter.incCounter(3); //inc counter
+            }
+            else {
                 pos = getRight(pos);
+                Counter.incCounter(3); // inc counter
+            }
             if(Counter.incCounter(3) && key == getKey(pos))
                 break;
         }
@@ -127,24 +152,32 @@ public class ThreadedBinaryTree implements IBinaryTree {
     }
 
     private int leftMost(int pos, int k1){
-        while(Counter.incCounter(6) && Counter.incCounter(6) && !isLeftThread(pos) && k1 <= getKey(pos))
+        while(Counter.incCounter(6) && !isLeftThread(pos) && Counter.incCounter(6) && k1 <= getKey(pos)) {
             pos = getLeft(pos);
+            Counter.incCounter(6);
+        }
 
         return pos;
     }
 
     public void rangeSearch(int pos, int k1, int k2){
         pos = leftMost(pos, k1);
+        Counter.incCounter(6);
 
         while(Counter.incCounter(6) && k2 >= getKey(pos)){
-            if(Counter.incCounter(6) && k1 <= getKey(pos)) {
-                /*System.out.println("Key "+ getKey(pos));*/
-            }
 
-            if(Counter.incCounter(6) && isRightThread(pos))
+            if(Counter.incCounter(6) && isRightThread(pos)) {
                 pos = getRight(pos);
-            else
+                Counter.incCounter(6);
+
+                if(Counter.incCounter(6) && k1 <= getKey(pos)) {
+                    /*System.out.println("Key "+ getKey(pos));*/
+                }
+            }
+            else {
                 pos = leftMost(getRight(pos), k1);
+                Counter.incCounter(6);
+            }
         }
     }
 }

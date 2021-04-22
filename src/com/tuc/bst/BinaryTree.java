@@ -61,6 +61,11 @@ public class BinaryTree implements IBinaryTree {
         _tree[_currentPos][0] = key;
         setLeft(-1, _currentPos);
         setRight(-1, _currentPos);
+
+        Counter.incCounter(0);
+        Counter.incCounter(0);
+        Counter.incCounter(0);
+        Counter.incCounter(0);
     }
 
     /**
@@ -68,9 +73,12 @@ public class BinaryTree implements IBinaryTree {
      * @return currentPosition to add the key to
      */
     public int getLeftPointer(){
-        if(getLeft(_currentPos) == -1)
+        if(Counter.incCounter(0) && getLeft(_currentPos) == -1) {
             setLeft(_nextPosition, _currentPos);
+            Counter.incCounter(0);
+        }
 
+        Counter.incCounter(0);
         return _currentPos = getLeft(_currentPos);
     }
 
@@ -79,9 +87,12 @@ public class BinaryTree implements IBinaryTree {
      * @return currentPosition to add the key to
      */
     public int getRightPointer() {
-        if(getRight(_currentPos) == -1)
+        if(Counter.incCounter(0) && getRight(_currentPos) == -1) {
             setRight(_nextPosition, _currentPos);
+            Counter.incCounter(0);
+        }
 
+        Counter.incCounter(0);
         return _currentPos = getRight(_currentPos);
     }
 
@@ -104,7 +115,7 @@ public class BinaryTree implements IBinaryTree {
         if(Counter.incCounter(5) && k1 <= getKey(pos))
             rangeSearch(getLeft(pos), k1, k2);
 
-        if(Counter.incCounter(5) && Counter.incCounter(5) && k1 <= getKey(pos) && k2 >= getKey(pos)){
+        if(Counter.incCounter(5) && k1 <= getKey(pos) && Counter.incCounter(5) && k2 >= getKey(pos)){
             /*System.out.println("Key found: " + getKey(pos));*/
         }
 

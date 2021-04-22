@@ -25,7 +25,7 @@ public class UniqueRandomGenerator {
     }
 
     /**
-     * This method generates 10.000 random key numbers
+     * This method generates 100.000 random key numbers
      */
     public static void generateRandomNumbers() {
         java.util.Random randomGenerator = new java.util.Random();
@@ -63,7 +63,5 @@ public class UniqueRandomGenerator {
         return _randomKeys;
     }
 
-    public static int[] getSortedInts() {
-        return _sortedInts;
-    }
+    public static int[] getSortedInts() { return _sortedInts; }
 }
